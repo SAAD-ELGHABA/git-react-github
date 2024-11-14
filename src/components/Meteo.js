@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFrown } from '@fortawesome/free-solid-svg-icons';
-import './App.css';
 function Grp204WeatherApp() {
    const [input, setInput] = useState('');
    const [weather, setWeather] = useState({
@@ -45,8 +44,9 @@ function Grp204WeatherApp() {
        }
    };
    return (
-       <div className="App">
-           <h1 className="app-name">Application Météo grp204</h1>
+    <div className='w-full flex place-items-center h-screen justify-center '>
+        <div className="w-1/3 text-center  bg-slate-300  border p-20  hover:animate-none">
+           <h1 className="app-name">Application Météo grp206</h1>
            <div className="search-bar">
                <input
                    type="text"
@@ -72,16 +72,18 @@ function Grp204WeatherApp() {
                </>
            )}
            {weather && weather.data && weather.data.main && (
-               <div>
+               <div className='w-full text-center grid justify-center '>
                    <h2>{weather.data.name}, {weather.data.sys.country}</h2>
                    <span>{toDateFunction()}</span>
                    <img src={`https://openweathermap.org/img/wn/${weather.data.weather[0].icon}@2x.png`} 
-alt={weather.data.weather[0].description} />
+                    alt={weather.data.weather[0].description} className='mx-auto w-1/2' />
                    <p>{Math.round(weather.data.main.temp)}°C</p>
                    <p>Vitesse du vent : {weather.data.wind.speed} m/s</p>
                </div>
            )}
        </div>
+    </div>
+       
    );
 }
 export default Grp204WeatherApp;
