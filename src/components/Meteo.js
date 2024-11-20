@@ -43,6 +43,11 @@ function Grp204WeatherApp() {
                });
        }
    };
+//    const [dark,setDark] = useState();
+//    const isDaytime = (sunset) => {
+//     const now = new Date().getTime() / 1000;
+//     return now < sunset;
+//   };
    return (
     <div className='w-full flex place-items-center h-screen justify-center '>
         <div className="w-1/3 text-center  bg-slate-400  border p-14  hover:animate-none rounded-2xl">
