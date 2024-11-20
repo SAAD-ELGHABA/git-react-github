@@ -1,15 +1,50 @@
 import { Oval } from 'react-loader-spinner';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFrown } from '@fortawesome/free-solid-svg-icons';
 function Grp204WeatherApp() {
+
+const url = 'https://api.openweathermap.org/data/2.5/weather';
+const api_key = 'f00c38e0279b7bc85480c3fe775d518c';
    const [input, setInput] = useState('');
+   
    const [weather, setWeather] = useState({
        loading: false,
        data: {},
        error: false,
-   });
+    });
+    const [IpAdress,setIpAdress] = useState({longitude:null,latitude:null});
+    // useEffect(()=>{
+    //     navigator.geolocation.getCurrentPosition((position)=>{
+    //      setIpAdress({longitude:position.coords.longitude,latitude:position.coords.latitude});
+    //     })
+    // })
+    const [city,setCity] = useState(null);
+   
+    const axiosFun = async ()=>{
+        await axios.get(`https://api.openweathermap.org/data/2.5/weather`,
+            {params: {
+            q: input,
+            units: 'metric',
+            appid: api_key,
+        }}
+    )
+        .then((res)=>{console.log(res)})
+        .catch((error)=>{console.log(error)})
+    }
+    axiosFun()
+    // fetch(`https://api.ipinfo.io/${IpAdress.latitude},${IpAdress.longitude}`)
+    //     .then(response => response.json())
+    //     .then(data => setCity(data.city))
+    //     .catch(error => console.log(error)
+    //     );
+
+        // console.log(city);
+        
+    
+
+
    const toDateFunction = () => {
        const months = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 
 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
@@ -19,13 +54,12 @@ function Grp204WeatherApp() {
 {months[currentDate.getMonth()]}`;
        return date;
    };
+
    const search = async (event) => {
        if (event.key === 'Enter') {
            event.preventDefault();
            setInput('');
            setWeather({ ...weather, loading: true });
-           const url = 'https://api.openweathermap.org/data/2.5/weather';
-           const api_key = 'f00c38e0279b7bc85480c3fe775d518c';
            await axios
                .get(url, {
                    params: {
